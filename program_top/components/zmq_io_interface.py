@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 from zmq.eventloop.zmqstream import ZMQStream
 from zmq import Context,PULL,PUSH
 from program_top.utilities.ip_and_socket import get_local_ip
@@ -53,26 +54,14 @@ class zmq_io_gateway(component_base):
 		指定持有这个端口的实例
 		'''
 		super(zmq_io_gateway, self).__init__(binding_instance)
+		
+		
 		self.sender=zmq_send_connection()
-		self.sender.connect('192.168.1.199', 31416)
+		
 		platform_category=binding_instance._environment_pack['current_platform_info']['current_system_category']
 		self.lan_ip=get_local_ip(platform_category)
 
 		if callback_entrance:
 			self.listener=zmq_listen_connection(in_port,callback_entrance)
 		pass
-
-	def pulse_send(self,target_ip,target_port,json_to_send):
-		'''
-		脉冲发送，发完就断开
-		
-		'''
-		
-		self.sender.send(json_to_send)
-		#self.sender.dis_connect(target_ip,target_port)
-		pass
-
-	def loop_sending(self,target_ip,target_port,json_to_send):
-		pass
-
 	pass

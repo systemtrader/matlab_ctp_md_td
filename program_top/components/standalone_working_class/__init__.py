@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-import json
-import os
+import json,os
 from csv import DictReader
-
 from program_top.components import component_base
 from program_top.components.zmq_io_interface import zmq_io_gateway
+from program_top.components.tcp_io_gateway import tcp_gateway
 from program_top.utilities.csv_and_json_serialisation import temperarily_load_a_local_json
 from program_top.utilities.ip_and_socket import scan_available_ports_then_return
 from program_top.utilities.my_dir import make_ever_dir
@@ -25,8 +24,8 @@ class standalone_working_class(component_base):
 	def __port_and_loop_initilisation(self):
 		'''端口和消息循环入口初始化'''
 		port_for_listening=scan_available_ports_then_return(self._environment_pack['current_platform_info']['current_system_category'])
-		self._io_gateway=zmq_io_gateway(port_for_listening, self._request_in, self)
-		self._io_gateway.listening_port=port_for_listening
+		
+		self._io_gateway=tcp_gateway(port_for_listening, self._request_in, self)
 		pass
 
 	def __path_initialisation(self):

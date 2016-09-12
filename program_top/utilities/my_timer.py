@@ -2,9 +2,8 @@
 
 from __future__ import division
 from PyQt4.QtCore import QTimer,Qt
-import time
 from datetime import datetime
-from zmq.eventloop.ioloop import IOLoop,PeriodicCallback
+from zmq.eventloop.ioloop import IOLoop
 from program_top.utilities.my_datetime import datetime2posix_timestamp
 
 class my_zmq_timer(object):
@@ -59,7 +58,6 @@ class my_zmq_timer(object):
 		else:
 			self.emit_function()
 		
-
 	pass
 
 class my_qt_timer(QTimer):

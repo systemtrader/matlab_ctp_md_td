@@ -24,9 +24,12 @@ class ctp_md_forwarder(front_end_base):
 		pass
 	
 	def __socket_init(self):
+		'''
+		socket连接方式
 		self.sink=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.target_address=("192.168.199.186",31416)
-		self.sink.connect(self.target_address)
+		self.sink.connect(self.target_address)'''
+		
 		self.__messege_count=0
 		pass
 	
@@ -36,8 +39,10 @@ class ctp_md_forwarder(front_end_base):
 		try:
 			
 			current_messege=datetime.now().__repr__()+'message no:'+str(self.__messege_count)+os.linesep
+			self._io_gateway.pulse_send(current_messege)
+			
 			print current_messege
-			self.sink.send(current_messege)#一定要注意，这里绝对不能传输中文，matlab那边接收中文就会无法按行接收字符串
+			#self.sink.send(current_messege)#一定要注意，这里绝对不能传输中文，matlab那边接收中文就会无法按行接收字符串
 			
 		except Exception, current_exception:
 			print current_exception
